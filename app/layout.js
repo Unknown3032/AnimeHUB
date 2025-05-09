@@ -1,15 +1,35 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import localFont from 'next/font/local'
+
+
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const circularWeb = localFont({
+  src: '../public/fonts/circularweb-book.woff2',
+  variable: '--font-circular',
+})
+
+const general = localFont({
+  src: '../public/fonts/general.woff2',
+  variable: '--font-general',
+})
+
+const robertMedium = localFont({
+  src: '../public/fonts/robert-medium.woff2',
+  variable: '--font-robert-medium',
+})
+
+const robertRegular = localFont({
+  src: '../public/fonts/robert-regular.woff2',
+  variable: '--font-robert-regular',
+})
+
+const zentry = localFont({
+  src: '../public/fonts/zentry-regular.woff2',
+  variable: '--font-zentry',
+})
+
+
 
 export const metadata = {
   title: "Create Next App",
@@ -20,7 +40,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`
+           ${circularWeb.variable} ${general.variable} ${robertMedium.variable} ${robertRegular.variable} ${zentry.variable}
+            antialiased`
+        }
       >
         {children}
       </body>
