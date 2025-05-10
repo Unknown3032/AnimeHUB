@@ -8,6 +8,7 @@ import { ScrollTrigger } from "gsap/all";
 
 // icons 
 import { TiLocationArrow } from "react-icons/ti";
+import VideoPreview from '../Reusable/VideoPreview ';
 
 
 gsap.registerPlugin(ScrollTrigger);
@@ -37,7 +38,7 @@ const Hero = () => {
     const getvideoSrc = (index) => `./videos/hero-${index}.mp4`;
 
     useEffect(() => {
-        if (loadedVideos === totalVideos - 1) {
+        if (loadedVideos > 0) {
             setIsLoading(false);
         }
     }, [loadedVideos]);
@@ -92,16 +93,18 @@ const Hero = () => {
     return (
         <div className='relative w-screen h-dvh overflow-x-hidden'>
 
-            {isLoading && (
-                <div className="flex-center absolute z-[100] h-dvh w-screen overflow-hidden bg-violet-50">
-                    {/* https://uiverse.io/G4b413l/tidy-walrus-92 */}
-                    <div className="three-body">
-                        <div className="three-body__dot"></div>
-                        <div className="three-body__dot"></div>
-                        <div className="three-body__dot"></div>
-                    </div>
-                </div>
-            )}
+            {
+                // isLoading && (
+                //     <div className="flex-center absolute z-[100] h-dvh w-screen overflow-hidden bg-violet-50">
+                //         {/* https://uiverse.io/G4b413l/tidy-walrus-92 */}
+                //         <div className="three-body">
+                //             <div className="three-body__dot"></div>
+                //             <div className="three-body__dot"></div>
+                //             <div className="three-body__dot"></div>
+                //         </div>
+                //     </div>
+                // )
+            }
 
             <div id='video-frame' className='relative z-10 w-screen h-dvh overflow-hidden rounded-lg bg-billu-75 '>
 
@@ -111,19 +114,22 @@ const Hero = () => {
 
                     {/* miniVideo player */}
                     <div className='mask-clip-path absolute-center absolute z-50 size-64 cursor-pointer overflow-hidden rounded-lg'>
-                        <div
-                            className='origin-center scale-50 opacity-0 hover:scale-100 hover:opacity-100 transition-all duration-500 ease-in'
-                            onClick={handleMiniVdClick}>
-                            <video
-                                loop
-                                muted
-                                ref={nextVideoRef}
-                                id='curent-video'
-                                src={getvideoSrc(upcomingVideoIndex)}
-                                onLoadedData={handleVideoLoad}
-                                className='size-64 origin-center scale-150 obeject-cover object-center'
-                            />
-                        </div>
+                        <VideoPreview>
+                            <div
+                                onClick={handleMiniVdClick}
+                                className="origin-center scale-50 opacity-0 transition-all duration-500 ease-in hover:scale-100 hover:opacity-100"
+                            >
+                                <video
+                                    ref={nextVideoRef}
+                                    src={getvideoSrc((curuntIndex % totalVideos) + 1)}
+                                    loop
+                                    muted
+                                    id="current-video"
+                                    className="size-64 origin-center scale-150 object-cover object-center"
+                                    onLoadedData={handleVideoLoad}
+                                />
+                            </div>
+                        </VideoPreview>
                     </div>
                     {/* miniVideo player end */}
 
